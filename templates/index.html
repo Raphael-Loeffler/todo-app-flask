@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Todo Webapp</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../static/css/index.css">
+    </head>
+    <body>
+        <a href="{{ url_for('index') }}" id="nav"><h1>Tasks</h1></a>
+
+        <form action="/add" method="post">
+            <label for="title">Title:</label>
+            <input type="text" name="title" placeholder="Enter Task">
+
+            <button type="submit">Add</button>
+        </form>
+
+        <hr>
+
+        <section id="todos">
+            {% for todo in todo_list %}
+                <div id="todo">
+                    <p>{{ todo.id }} | {{ todo.title }}</p>
+                    <div id="column2">
+                        {% if todo.is_complete == False %}
+                            <span id="incomplete">Incomplete</span>
+                        {% else %}
+                            <span id="complete">Complete</span>
+                        {% endif %}
+                        <a href="/update/{{ todo.id }}" id="update">Update</a>
+                        <a href="/delete/{{ todo.id }}" id="delete">Delete</a>
+                    </div>
+                    
+                </div>
+            {% endfor %}
+        </section>
+        
+    </body>
+</html>
